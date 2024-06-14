@@ -1,49 +1,77 @@
-require('dotenv').config();
+require("dotenv").config();
+
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const route = require("./routes.js");
-
+const route = require("./routes/routes.js");
+const cors = require("cors");
+const db = require("./app/models");
+const { TextEncoder, TextDecoder } = require("util");
+const encoder = new TextEncoder("utf-8");
 const app = express();
+const Role = db.role;
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/", route);
 
-app.use('/', route)
-
-function generateAccessToken(username) {
-  return jwt.sign({ username }, process.env.TOKEN_SECRET, { expiresIn: "1800s", });
-}
-
-const login = async (req, res = response) => {
-  const { email, password } = req.body;
-  // Ideally search the user in a database and validate password, throw an error if not found.
-  const user = getUserFromDB({ email, password });
-
-  if (user) {
-    const token = generateAccessToken(user?.username);
-    res.json({
-      token: `Bearer ${token}`,
-    });
-  } else res.sendStatus(401);
+var corsOptions = {
+	origin: process.env.APP_URL,
 };
 
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
+app.use(cors(corsOptions));
 
-  // Ideally search the user in a database and validate password, throw an error if not found.
-  const user = getUserFromDB({ email, password });
+app.use(express.json());
 
-  if (user) {
-    console.log(`${user?.username} is trying to login ..`);
-    const token = generateAccessToken(user?.username);
-    res.json({
-      token: `Bearer ${token}`,
-    });
-  } else res
-    .status(401)
-    .json({ message: "The username and password your provided are invalid" });
+db.mongoose
+	.connect(process.env.DB_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(() => {
+		console.log("Successfully connect to MongoDB.");
+		initial();
+	})
+	.catch((err) => {
+		console.error("Connection error", err);
+		process.exit();
+	});
 
-});
+function initial() {
+	Role.estimatedDocumentCount((err, count) => {
+		if (!err && count === 0) {
+			new Role({
+				name: "customer",
+			}).save((err) => {
+				if (err) {
+					console.log("error", err);
+				}
 
-app.listen(7001, () => {
-  console.log(process.env.JWT_SECRET);
-  console.log("API running on localhost:7001");
+				console.log("added 'customer' to roles collection");
+			});
+
+			new Role({
+				name: "seller",
+			}).save((err) => {
+				if (err) {
+					console.log("error", err);
+				}
+
+				console.log("added 'seller' to roles collection");
+			});
+
+			new Role({
+				name: "admin",
+			}).save((err) => {
+				if (err) {
+					console.log("error", err);
+				}
+
+				console.log("added 'admin' to roles collection");
+			});
+		}
+	});
+}
+
+app.listen(8081, (e) => {
+	console.log("API running on localhost:", 8081);
 });
