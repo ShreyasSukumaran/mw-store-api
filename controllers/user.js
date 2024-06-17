@@ -20,6 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		res
 			.status(400)
 			.send({ message: "Email is already associated with another account" });
+		return;
 	}
 
 	const user = new User({

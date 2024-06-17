@@ -22,6 +22,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
+db.mongoose.set("strictQuery", true);
+
 db.mongoose
 	.connect(process.env.DB_URL, {
 		useNewUrlParser: true,
