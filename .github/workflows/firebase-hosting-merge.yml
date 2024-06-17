@@ -24,7 +24,6 @@ jobs:
       - name: Install PM2
         run: npm install -g pm2
 
-      - run: npm install && pm2 start ecosystem.config.js --env production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
