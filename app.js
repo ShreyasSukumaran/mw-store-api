@@ -75,6 +75,6 @@ function initial() {
 	});
 }
 
-app.listen(8081, (e) => {
+app.listen(process.env.PORT, (e) => {
 	console.log("API running on localhost:", 8081);
 });
