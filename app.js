@@ -4,7 +4,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const route = require("./app/routes/routes.js");
 const cors = require("cors");
-const db = require("./app/models");
+const db = require("./app/models/index.js");
 const { TextEncoder, TextDecoder } = require("util");
 const encoder = new TextEncoder("utf-8");
 const app = express();
@@ -14,11 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/", route);
 
-var corsOptions = {
-	origin: process.env.APP_URL,
-};
+//var corsOptions = {
+//	origin: process.env.APP_URL,
+//};
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 
