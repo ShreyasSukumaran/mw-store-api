@@ -1,4 +1,4 @@
-const db = require("../app/models");
+const db = require("../models");
 const asyncHandler = require("express-async-handler");
 const User = db.user;
 const Role = db.role;
@@ -221,6 +221,11 @@ const genToken = (id) => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "3600s" });
 };
 
+const apiCheck = (req, res, next) => {
+	res.writeHead(200, { "Content-Type": "text/plain" });
+	res.end("API Works..!");
+};
+
 module.exports = {
 	getUsers,
 	postUser,
@@ -230,4 +235,5 @@ module.exports = {
 	deleteUser,
 	loginUser,
 	registerUser,
+	apiCheck,
 };

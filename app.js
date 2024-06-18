@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const route = require("./routes/routes.js");
+const route = require("./app/routes/routes.js");
 const cors = require("cors");
 const db = require("./app/models");
 const { TextEncoder, TextDecoder } = require("util");
