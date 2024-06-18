@@ -8,7 +8,6 @@ module.exports = {
 				followSymlinks: false,
 				usePolling: true,
 			},
-			interpreter: "/home/shreyas/.nvm/versions/node/v20.11.1/bin/node",
 			watch: true,
 			env: {
 				NODE_ENV: "development",
