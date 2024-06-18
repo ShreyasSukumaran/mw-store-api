@@ -2,11 +2,11 @@
 	"name": "mw-store",
 	"version": "1.0.0",
 	"description": "API for mw store - online watch retailer and sellers.",
-	"main": "server.js",
+	"main": "app.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon server.js",
-		"log": "node Log/logger.js"
+		"dev": "nodemon app.js",
+		"log": "node /app/storage/Log/logger.js"
 	},
 	"repository": {
 		"type": "git",

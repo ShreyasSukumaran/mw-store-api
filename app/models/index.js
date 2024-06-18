@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const db = {};
 
 db.mongoose = mongoose;
 
-db.user = require("../../model/user.model");
-db.role = require("../../model/role.model");
+db.user = require("./user.model");
+db.role = require("./role.model");
 
 db.ROLES = ["admin", "customer", "seller"];
 
