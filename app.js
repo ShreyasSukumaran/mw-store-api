@@ -76,5 +76,5 @@ function initial() {
 }
 
 app.listen(process.env.PORT, (e) => {
-	console.log("API running on localhost:", 8081);
+	console.log("API running on localhost:", process.env.PORT);
 });
