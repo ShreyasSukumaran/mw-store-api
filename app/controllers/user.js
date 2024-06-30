@@ -10,8 +10,6 @@ const registerUser = asyncHandler(async (req, res) => {
 	const salt = await bcrypt.genSalt(10);
 	let { firstName, lastName, email, password, role } = req.body;
 
-	console.log(req.body);
-
 	password = await bcrypt.hash(password, salt);
 
 	const userExists = await User.findOne({ email });
