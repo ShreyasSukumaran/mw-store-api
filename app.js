@@ -16,12 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/", route);
 
-//var corsOptions = {
-//	origin: process.env.APP_URL,
-//};
+var corsOptions = {
+	origin: process.env.APP_URL,
+};
 
-//app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
+//app.use(cors());
 
 app.use(express.json());
 
