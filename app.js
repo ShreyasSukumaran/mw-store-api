@@ -26,8 +26,8 @@ app.use(cors());
 app.use(express.json());
 
 const options = {
-	key: fs.readFileSync("key.pem"),
-	cert: fs.readFileSync("cert.pem"),
+	key: fs.readFileSync("private.key"),
+	cert: fs.readFileSync("certificate.crt"),
 };
 
 db.mongoose.set("strictQuery", true);
