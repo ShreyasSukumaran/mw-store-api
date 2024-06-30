@@ -4,6 +4,7 @@
 	"description": "API for mw store - online watch retailer and sellers.",
 	"main": "app.js",
 	"scripts": {
+		"build": "echo 'No build step necessary for Node API'",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon app.js",
 		"log": "node /app/storage/Log/logger.js"

@@ -25,3 +25,4 @@ yarn-error.log*
 
 Log/error.log
 Log/output.log
+.vercel
