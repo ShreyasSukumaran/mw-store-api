@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const https = require("https");
+const fs = require("fs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const route = require("./app/routes/routes.js");
@@ -22,6 +24,11 @@ app.use("/", route);
 app.use(cors());
 
 app.use(express.json());
+
+const options = {
+	key: fs.readFileSync("key.pem"),
+	cert: fs.readFileSync("cert.pem"),
+};
 
 db.mongoose.set("strictQuery", true);
 
@@ -75,6 +82,6 @@ function initial() {
 	});
 }
 
-app.listen(process.env.PORT, (e) => {
+https.createServer(options, app).listen(process.env.PORT, (e) => {
 	console.log("API running on localhost:", process.env.PORT);
 });
