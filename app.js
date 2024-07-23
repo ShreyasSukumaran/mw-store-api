@@ -11,10 +11,12 @@ const { TextEncoder, TextDecoder } = require("util");
 const encoder = new TextEncoder("utf-8");
 const app = express();
 const Role = db.role;
+import serverless from "serverless-http";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/", route);
+
 
 var corsOptions = {
 	origin: process.env.APP_URL,
@@ -82,6 +84,11 @@ function initial() {
 	});
 }
 
+
+
 https.createServer(options, app).listen(process.env.PORT, (e) => {
 	console.log("API running on localhost:", process.env.PORT);
 });
+
+
+export const handler = serverless(app);
