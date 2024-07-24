@@ -3,12 +3,9 @@ require("dotenv").config();
 const https = require("https");
 const fs = require("fs");
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const route = require("./app/routes/routes.js");
 const cors = require("cors");
 const db = require("./app/models/index.js");
-const { TextEncoder, TextDecoder } = require("util");
-const encoder = new TextEncoder("utf-8");
 const app = express();
 const Role = db.role;
 
@@ -49,35 +46,15 @@ db.mongoose
 function initial() {
 	Role.estimatedDocumentCount((err, count) => {
 		if (!err && count === 0) {
-			new Role({
-				name: "customer",
-			}).save((err) => {
-				if (err) {
-					console.log("error", err);
-				}
-
-				console.log("added 'customer' to roles collection");
-			});
-
-			new Role({
-				name: "seller",
-			}).save((err) => {
-				if (err) {
-					console.log("error", err);
-				}
-
-				console.log("added 'seller' to roles collection");
-			});
-
-			new Role({
-				name: "admin",
-			}).save((err) => {
-				if (err) {
-					console.log("error", err);
-				}
-
-				console.log("added 'admin' to roles collection");
-			});
+			["customer", "seller", "admin"].forEach((role) => {
+				new Role({ name: role }).save((err) => {
+				  if (err) {
+					console.log(`Error adding '${role}' to roles collection`, err);
+				  } else {
+					console.log(`Added '${role}' to roles collection`);
+				  }
+				});
+			  });
 		}
 	});
 }
