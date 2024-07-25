@@ -11,11 +11,11 @@ module.exports = {
 			watch: true,
 			env: {
 				NODE_ENV: "development",
-				APP_URL: "http://drama-cliq-api",
+				APP_URL: "http://localhost:5173",
 			},
 			env_production: {
 				NODE_ENV: "production",
-				APP_URL: "http://your_domain",
+				APP_URL: "https://drama-cliq.netlify.app",
 			},
 		},
 	],

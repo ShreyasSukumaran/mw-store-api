@@ -14,7 +14,6 @@ const Role = db.role;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/", route);
 
 var corsOptions = {
 	origin: process.env.APP_URL,
@@ -23,7 +22,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 //app.use(cors());
 
-app.use(express.json());
+app.use("/", route);
 
 const options = {
 	key: fs.readFileSync("private.key"),
@@ -82,6 +81,12 @@ function initial() {
 	});
 }
 
-https.createServer(options, app).listen(process.env.PORT, (e) => {
-	console.log("API running on localhost:", process.env.PORT);
-});
+if (process.env.NODE_ENV == "development") {
+	app.listen(process.env.PORT, (e) => {
+		console.log("API running on localhost:", process.env.PORT);
+	});
+} else {
+	https.createServer(options, app).listen(process.env.PORT, (e) => {
+		console.log("API running on localhost:", process.env.PORT);
+	});
+}
